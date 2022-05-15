@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Awesome Capacitor App</title>
+
+    <link rel="icon" type="image/x-icon" href="./assets/icon/favicon.ico" />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <meta name="theme-color" content="#31d53d" />
+
+    <!-- un-comment this code to enable service worker
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log('service worker installed'))
+        .catch(err => console.log('Error', err));
+    }
+  </script>-->
+  <style>
+
+		.chat_header{border-bottom: 1px solid lightgrey;}
+		.chat_header{border-bottom: 1px solid lightgrey;}
+		.chat_headerAvatar {border:0.5px solid #fff;}
+		.chat_headerAvatar {border:0.5px solid #fff;}
+		.chat_footer{border-top: 1px solid lightgrey;background-color: #2C3DD6;}
+		.chat_footer > form > .ion {padding: 5px; color: white;}
+		.chat_footer > .ion {padding: 5px; color: white;cursor :pointer;font-size: 35px;}
+		.ui-splashscreen{background-color: #2C3DD6!important;color: white!important;}
+		.container{background-color: white;}
+		.title_bar{background-color: #2C3DD6;}
+		.title_container{color : white;}
+		.single_tab{border-bottom: solid 3px transparent;color: white;}
+		.single_tab:hover, .active{color: white;border-color: white;}
+		.fa {color: white;}
+		.title_container p{color: white;}
+		.messages_section{background-color: white;}
+		.body_section{background-color: white;}
+		.messages_section a{color: black;}
+		.single_chat{background-color: white;}
+		.single_chat:after{background-color: white;}
+		.user_name{color: #2C3DD6;}
+		.user_name .last_message{color: grey;}
+		.user_name  .count{background-color: #00d260;color: white;}
+		.user_name .lastupdate, .count,  .read{color: #00d260; }
+		.read{color: rgba(165,165,165,0.8)!important;}
+		.android_controls{background-color: #2C3DD6;}
+		.lightbox_container{background-color:white;}
+		.lightbox_controls{background-color: #2C3DD6;}
+		.one_control i{color: white;}
+		.back_trigger i{color: #2C3DD6;}
+		.back_button i{color:white;}
+		.dropdown_item{background-color: #2C3DD6;}
+		.dropdown_item{color: white;}
+		.dropdown_item:hover{color : #2C3DD6;background-color : white;}
+		.avataruser_name{color: white;}
+		.user_name .avatar_name{color: white!important;}
+		.avatar_status{color: white!important;}
+		.tab_title{color: white;}
+		.chatbody{ width: 100%; background-image: url('../backgrounds/bg.png');background-repeat: repeat;background-position: center;padding: 25px;}
+		.chat_message{ font-family: "Helvetica Heue Light"; position: relative;font-size:16px;padding: 10px;border-radius: 10px; background-color: #fff;margin-bottom: 30px;max-width:70%;}
+		.chat_messageBodyMetaTimeStamp{ margin-left:10px;font-size: xx-small; color: #e0e0e0;}
+		.chat_receiver{margin-left:auto;background-color: #2C3DD6; color: white;}
+		.arrows{ color: white;width:auto; height:auto; position: fixed; top : 0; left: 48%;}
+		.arrows .ion{ padding-top: 0; margin-top: 0;}
+		.ion:hover {color: #e0e0e0;}
+		.ion2:hover {color: #e0e0e0;}
+	</style>
+  <link rel="apple-touch-icon" href="./img/icon.png" />
+	<link rel="stylesheet" href="./ionic/css/ionicons.min.css">
+	<link rel="stylesheet" href="./css/spa.min@18.css">
+	<link rel="stylesheet" href="./css/default_ui.css">
+	<link rel="stylesheet" href="./css/chat.css">
+	<link rel="stylesheet" href="./css/style.css">
+  <script src="./js/spa.min@18.js"></script>
+  </head>
+  
+<body data---="exec">
+	<a href="/marketplace" class="R"></a>
+	<a href="/wallet" class="R"></a>
+	<div data---="emoji"></div>
+	<div data---="animation__null__style:5;together:true;">
+	<div data---="splashscreen__null__timeout:10000" class="ui-splashscreen">
+		<div data---="menu"></div>
+        <script type="text/html">
+			<div><i  class="fa fa-comment-dots splash"></i></div>
+           <h1>SendMe</h1>
+        </script>
+    </div>
+	<div data---="serviceworker__common.version__datasource:common.serviceversion"></div>
+	<div class="container">
+			<div class="back_trigger hidden"> <i class="ion ion-ios-arrow-left" ></i> </div>
+			<input type="text" class="search_bar hidden">
+			<div class="lightbox">
+				<div class="lightbox_container animation">
+					<div class="lightbox_name"></div>
+
+					<div class="lightbox_image">
+						<img  alt="Bugatti car">
+					</div>
+					<div class="lightbox_controls">
+						<div class="one_control"><i class="ion ion-ios-chatbubble-outline"></i></div>
+						<div class="one_control"><i class="ion ion-ios-videocam-outline  lightbox_icon" ></i></div>
+						<div class="one_control"><i class="ion ion-ios-telephone-outline  lightbox_icon" ></i></div>
+						<div class="one_control"><i class="ion ion-ios-information-outline" ></i></div>
+					</div>
+				</div>
+			</div>
+			<div class="title_bar animation">
+				<div class="title_top">
+						<div class="botomtab_menu2">
+							<a href="/deposit" class="R"><div class="single_tab2"><i style="font-size: 32px;" class="ion ion-ios-cloud-upload-outline"></i> <span>Dépos</span> </div></a>
+							<a href="/withdraw" class="R"><div class="single_tab2 "><i style="font-size: 32px;" class="ion ion-ios-cloud-download-outline"></i> <span>Retrait</span> </div></a>
+							<a href="/scanner" class="R"><div class="single_tab2 "><i style="font-size: 32px;" class="ion ion-ios-barcode-outline"></i> <span>Scanner</span></div></a>
+							<a href="/settings" class="R"><div class="single_tab2 "><i style="font-size: 32px;" class="ion ion-ios-cog-outline"></i>Paramètres</div></a>
+						</div>
+						<hr>
+						<div class="botomtab_menu2">
+							<div id="balance" class="single_tab3">TOTAL : 1 650 000 XOF</div>
+						</div>
+				</div>
+				<div class="toptab_bar">
+
+
+					<div class="current_container">
+						<div class="back_button animation"> <i class="ion ion-ios-arrow-left" ></i> </div>
+						<div class="tab_title" data-bind="common.current_tab__text"></div>
+						<div data-bind="common.current_chat__template" class="avatar_container exec" data-exec="lightbox">
+							<script type="text/html">
+								<div class="image_container">
+									<img src="{{ value.img }}">
+								</div>
+								<a class="content_container">
+									<p class="user_name"> <name class="avatar_name">{{ value.username }}</name> </p>
+									<p class="user_name"> <name  class="avatar_status">{{ value.status }}</name> </p>
+								</a>
+							</script>
+						</div>
+					</div>
+
+
+					<div style="color:white;" class="icon_container">
+
+							<i class="ion ion-ios-arrow-down wallet_down "></i>
+							<i class="ion ion-ios-arrow-up wallet_up "></i>
+							<i class="ion ion-ios-videocam-outline hidden"></i>
+							<i class="ion ion-ios-telephone-outline hidden"></i>
+							<i class="ion ion-ios-cart-outline marketplace hidden"></i>
+							<i id="search" class="ion ion-ios-search"></i>
+							<i id="options" class="ion ion-ios-more"  ></i>
+					</div>
+				</div>
+			</div>
+			<div class="body_section hidden">
+				<div style="width: 100%;"  data---="page__common.page__if:messages;url:/parts/messages.html;reload:messages/reload"></div>
+				<div style="width: 100%;"  data---="page__common.page__if:marketplace;url:/parts/marketplace.html;reload:marketplace/reload"></div>
+				<div style="width: 100%;"  data---="page__common.page__if:wallet;url:/parts/wallet.html;reload:wallet/reload"></div>
+				<div style="width: 100%;"  data---="page__common.page__if:deposit;url:/parts/deposit.html;reload:deposit/reload"></div>
+				<div style="width: 100%;"  data---="page__common.page__if:withdraw;url:/parts/withdraw.html;reload:withdraw/reload"></div>
+				<div style="width: 100%;"  data---="page__common.page__if:scanner;url:/parts/scanner.html;reload:scanner/reload"></div>
+				<div style="width: 100%;"  data---="page__common.page__if:settings;url:/parts/settings.html;reload:settings/reload"></div>
+			</div>
+			<div style="width: 100%;" data---="page__common.page__if:camera;url:/parts/camera.html;reload:camera/reload"></div>
+			<div class="messages_section">
+				<div id="rigthpart" style="width: 100%;" data---="page__common.page__if:chats;url:/parts/chats.html;reload:chats/reload"></div>
+				<div data---="page__common.page__if:groups;url:/parts/groups.html;reload:groups/reload"></div>
+				<div data---="page__common.page__if:stories;url:/parts/stories.html;reload:stories/reload"></div>
+				<div data---="page__common.page__if:calls;url:/parts/calls.html;reload:calls/reload"></div>
+			</div>
+			<div class="chat_footer hidden">
+				<i class="ion ion-happy exec" data-exec="show_emoji"></i>
+					<i class="ion ion-paperclip" ></i>
+				<form action="/api/v1/messages/new" method="POST">
+					<input type="hidden" name="name"value="Louis Bertson">
+					<input type="hidden" name="receiver" value="0">
+					<input id="msg" data-bind="common.msg__text" type="text" name="message" placeholder="Type message here">
+					<i class="ion ion-ios-paperplane-outline exec"></i>
+				</form>
+				<i class="fa fa-microphone"></i>
+			</div>
+			<div  class="android_controls animation hidden">
+				<div class="botomtab_menu">
+					<a href="/" class="R hidden"></a>
+					<a href="/camera" class="R"><div class="single_tab "><i style="font-size: 40px;" class="ion ion-ios-camera-outline"></i> <span>Camera</span></div></a>
+					<a href="/chats" class="R"><div class="single_tab"><i style="font-size: 33px;" class="ion ion-ios-chatboxes-outline"></i> <span>Messages</span> </div></a>
+					<a href="/groups" class="R"><div class="single_tab "><i style="font-size: 42px;" class="ion ion-ios-people-outline"></i> <span>Groupes</span> </div></a>
+					<a href="/stories" class="R"><div class="single_tab "><i style="font-size: 32px;" class="ion ion-ios-ionic-outline"></i> <span>Status</span></div></a>
+					<a href="/calls" class="R"><div class="single_tab "><i style="font-size: 40px;" class="ion ion-ios-telephone-outline tab_phone"></i>Appels</div></a>
+				</div>
+		  	</div>
+	</div>
+	<script>
+    DEF.baseurl='http://0.0.0.0:8000/';
+		NAV.clientside('.R');
+		var common = {};
+		common.page = 'chats';
+		common.current_tab = 'Chats';
+		common.messages = [];
+		common.current_chat = {};
+		common.chats = [];
+		common.volume = 80;
+		common.chat_list = [];
+			function clear_current(){
+				SET('common.current_chat',{});
+		}
+		function fetch_chats(next){
+            AJAX('GET /api/chats/',function(res){
+                SET('common.chats',res);
+				if(!next){
+					return;
+				}
+				next();
+            });
+		};
+		MAIN.topH = 60;
+		var bottomTopH = MAIN.topH;
+		var H = WH - bottomTopH;
+		MAIN.sectionH = H;
+
+
+		function active(cls){
+			$('.ion-ios-camera-outline').parent().removeClass('active');
+			$('.ion-ios-chatboxes-outline').parent().removeClass('active');
+			$('.ion-ios-people-outline').parent().removeClass('active');
+			$('.ion-ios-ionic-outline').parent().removeClass('active');
+			$('.ion-ios-telephone-outline').parent().removeClass('active');
+			$(cls).parent().removeClass('active');
+			$(cls).addClass('active');
+		}
+
+		function title(txt){
+           SET('common.current_tab',txt);
+		}
+
+		// Middleware for every chat opened
+		MIDDLEWARE('current_chat',function(next){
+
+			SET('common.current_tab','');
+			$('.ion-ios-telephone-outline').removeClass('hidden');
+			$('.ion-ios-videocam-outline').removeClass('hidden');
+			$('.body_section').removeClass('hidden');
+			$('.wallet').addClass('hidden');
+			$('.marketplace').addClass('hidden');
+			$('.chat_footer').removeClass('hidden');
+			$('.android_controls').addClass('hidden');
+			$('.ion-ios-search').hide();
+			var md = this;
+			var arr = md.href.split('/');
+			var id = arr[2]+'';
+			var chats = GET('common.chats');
+			var element = chats.findItem('unique',id);
+			if(!element){
+				fetch_chats(next);
+			}
+			var current = {};
+
+			current.img = element.img;
+			current.username = element.username;
+			SET('common.current_chat',{});
+			SET('common.current_chat',current);
+			next();
+		});
+
+		if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+			REDIRECT('/');
+			console.info( "This page is reloaded" );
+		  } else {
+			console.info( "This page is not reloaded");
+		  };
+		// function for hide things Header and and bottom tab bar
+		function hider(){
+			$('.back_button').show();
+			$('.android_controls').hide();
+			$('.messages_section').hide();
+		};
+
+		//function for  display things: Header and bottom tab bar
+		function displayer(){
+			$('.back_button').hide();
+			$('.android_controls').show();
+			$('.messages_section').show();
+		};
+
+		// function for hide icons/tabs in defauls
+		function hide_icons(){
+			$('.ion-ios-telephone-outline').addClass('hidden');
+			$('.ion-ios-videocam-outline').addClass('hidden');
+			$('.tab_phone').removeClass('hidden');
+		}
+
+
+		// route for open a chat with middleware
+		ROUTE('/chats/{ unique }/',function(){
+				hider();
+				SET('common.page','messages');
+		},'current_chat');
+
+		// route for open device camera
+		ROUTE('/camera',function(){
+			title('Camera');
+			clear_current();
+			hide_icons();
+			SET('common.page','camera');
+		});
+		// Route for goto Groups
+		ROUTE('/groups',function(){
+			title('Groupes');
+			clear_current();
+			hide_icons();
+
+			SET('common.page','groups');
+		});
+
+		// Route for goto stories
+		ROUTE('/stories',function(){
+			title('Status');
+			clear_current();
+			hide_icons();
+
+			SET('common.page','stories');
+		});
+
+		// Route for goto chats
+		ROUTE('/chats',function(){
+			$('.ion-ios-search').removeClass('hidden');
+			$('.ion-ios-search').show();
+			$('.marketplace').removeClass('hidden');
+			title('Discussions');
+			displayer();
+			clear_current();
+			SET('common.page','chats');
+		});
+		ROUTE('/',function(){
+			$('.ion-ios-telephone-outline').addClass('hidden');
+			$('.ion-ios-videocam-outline').addClass('hidden');
+			$('.tab_phone').removeClass('hidden');
+			$('.wallet').removeClass('hidden');
+			$('.marketplace').removeClass('hidden');
+			$('.body_section').addClass('hidden');
+			$('.chat_footer').addClass('hidden');
+			$('.android_controls').removeClass('hidden');
+			// Show Search bar icon;
+			$('.ion-ios-search').show();
+			$('.ion-ios-search').removeClass('hidden');
+			// Display marketplace and wallet tabs
+			$('.wallet').removeClass('hidden');
+			$('.marketplace').removeClass('hidden');
+			// Function for toggle tab active
+			title('Chats');
+			displayer();
+			clear_current();
+			SET('common.page','chats');
+		});
+		// Route for go to phone/video calls
+		ROUTE('/calls',function(){
+			hide_icons();
+			title('Appels');
+			clear_current();
+			SET('common.page','calls');
+		});
+
+		// Click event for display the lightbox of chats
+		$('.lightbox').click(function(e){
+			var q = $(this);
+			if($(e.target).attr('class') == 'lightbox'){
+				 q.animate({opacity : 0.5},200);
+				 $('.lightbox_container').hide('slow');
+				 var id = setTimeout(function(){
+					 q.css('display','none');
+					 $('.lightbox_image img').attr('src','');
+				 },200);
+			}
+		});
+
+		// Route for goto marketplace
+		ROUTE('/marketplace',function(){
+			title('Market');
+			clear_current();
+			hide_icons();
+
+			SET('common.page','market');
+		});
+
+
+		// Route for goto wallet
+		ROUTE('/wallet',function(){
+			title('Wallet');
+			clear_current();
+			hide_icons();
+
+			SET('common.page','wallet');
+		});
+		ROUTE('/deposit',function(){
+			wallet_up();
+
+			title('Dépos');
+			clear_current();
+			hide_icons();
+
+			SET('common.page','deposit');
+		});
+		ROUTE('/withdraw',function(){
+			wallet_up();
+
+			title('Retrait');
+			clear_current();
+			hide_icons();
+
+			SET('common.page','withdraw');
+		});
+		ROUTE('/scanner',function(){
+			wallet_up(true);
+
+			title('Scanner');
+			clear_current();
+			hide_icons();
+
+			SET('common.page','scanner');
+		});
+		ROUTE('/settings',function(){
+
+			wallet_up();
+			title('Paramètres');
+			clear_current();
+			hide_icons();
+
+			SET('common.page','settings');
+		});
+		$('.wallet_up').addClass('hidden');
+
+		$('.wallet_down').click(function(){
+			$('.title_top').slideDown();
+			$('.wallet_up').removeClass('hidden');
+			$(this).addClass('hidden');
+		});
+
+
+		$('.wallet_up').click(function(){
+			$('.title_top').slideUp();
+			$('.wallet_down').removeClass('hidden');
+			$(this).addClass('hidden');
+		});
+		$('#options').click(function(){
+					var opt = {};
+					opt.items = ['Label',
+					{ name: 'New Group', icon: 'print' },
+					{ name: 'New Broadcast', icon: 'print' },
+					{ name: 'Whatsapp Web', icon: 'print' },
+					{ name: 'Stared messages', icon: 'print' },
+					{ name: 'Settings', icon: 'print' }
+					];
+					opt.element = this;
+					//opt.classname = 'dropdown_menu';
+					opt.callback = function(selected) {
+						console.log(selected);
+					};
+					SETTER('menu','show', opt);
+
+		});
+		function more_options(){
+			console.log('Options clicked');
+			var options = $('#options');
+
+		};
+		// resize viewport according to Height ot fixed elements such as
+		//the botom menu bar and the top menu and titlebars
+		function resizeAll(Hbotom, classname){
+			var bottomTopH = Hbotom;
+
+			var H;
+			H = WH - bottomTopH;
+			MAIN.sectionH = H;
+			var element = $(classname);
+			element.css('padding-bottom','60px');
+			element.height('height',parseFloat(MAIN.sectionH));
+			console.log('RESIZING... Width:', WW, 'Height:', WH);
+		};
+		function resizeAll2(Hbotom, classname){
+			var bottomTopH = Hbotom;
+
+			var H;
+
+			H = WH - 4;
+			MAIN.sectionH = H;
+
+
+			var element = $(classname);
+			element.css('padding-bottom','60px');
+			element.height('height',parseFloat(MAIN.sectionH));
+			console.log('RESIZING... Width:', WW, 'Height:', WH);
+		};
+		ON('resize2', function() {
+			resizeAll(60,'.messages_section');
+			resizeAll(60,'.body_section');
+			if(isMOBILE){
+                resizeAll2(60,'.camera_zone');
+				$('.camera_zone').css('width','100%');
+            }
+		});
+		$('.back_trigger').click(function(){
+			$('.search_bar').val('');
+			$('.search_bar').keyup();
+			$('.search_bar').animate({opacity : 0},400);
+			$('.back_trigger').addClass('hidden');
+			$('.back_button').addClass('hidden');
+			$('.search_bar').addClass('hidden');
+			$('.back_trigger').addClass('hidden');
+			resizeAll(60,'.messages_section');
+
+		});
+		function wallet_up(hide){
+			$('.title_top').slideUp();
+			$('.wallet_down').removeClass('hidden');
+			$('.wallet_up').addClass('hidden');
+			if(hide){
+				hide_tabMenu();
+			}else{
+				show_tabMenu();
+			}
+		};
+		function hide_tabMenu(){
+			$('.android_controls').addClass('hidden');
+			resizeAll(60,'.messages_section');
+		};
+		function show_tabMenu(){
+			$('.android_controls').removeClass('hidden');
+
+		};
+		show_tabMenu();
+		var element = $('.messages_section');
+			element.css('padding-bottom','60px');
+			element.height(parseFloat(MAIN.sectionH));
+			var opt = {};
+				opt.shadow = true;
+				opt.onscroll = function(scrollbar){
+					console.log(scrollbar);
+				};
+		SCROLLBAR(element, opt);
+
+				var element2 = $('.body_section');
+				element2.css('padding-bottom','20px');
+				element2.height(parseFloat(MAIN.sectionH));
+				var opt2 = {};
+					opt2.shadow = true;
+					opt2.onscroll = function(scrollbar){
+					};
+		SCROLLBAR(element2, opt2);
+
+	  if(!isMOBILE){
+		  SETTER('')
+	  }
+	  ON('location', function(url) {
+		if(url != '/camera/'){
+			console.log('camera off');
+		
+		}
+	});
+	</script>
+	<script src="./js/default_ui.js"></script>
+	<script src="./capacitor.js"></script>
+	</div>
+
+  
+  </body>
+</html>

@@ -1,0 +1,11 @@
+{
+	"appId": "louisbertson.webapp.app",
+	"appName": "SendMe",
+	"bundledWebRuntime": true,
+	"webDir": "www",
+	"plugins": {
+		"SplashScreen": {
+			"launchShowDuration": 0
+		}
+	}
+}

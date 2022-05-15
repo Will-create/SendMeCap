@@ -1,0 +1,48 @@
+<div style="width: 100%;" data-scope="messages">
+        <div class="chatbody" style="width: 100%;" data-bind="?.messages__template">
+            <script type="text/html" >
+                {{ foreach message in value }}
+                <p data-id="{{ message.id}}"  class="chat_message {{if message.incoming == true }} chat_receiver {{ fi}} ">
+                    <span class="chat_messageAuthor">{{message.author}}</span>
+                    {{message.body | raw}}
+                    <span class="chat_messageBodyMetaTimeStamp">{{message.timestamp}}</span>
+                    </p>
+                {{ end }}
+            </script>
+        </div>
+</div>
+<style>
+</style>
+<script>
+   
+
+
+function show_emoji (){
+        var opt = {};
+opt.element = this;
+opt.align = 'center';
+opt.position = 'bottom';
+opt.callback = function(selected) {
+    $('#msg').text(selected);
+};
+SETTER('emoji', 'show', opt);
+}
+    
+    PLUGIN('messages', function(exports) {
+        // You can define your custom functions or properties
+ 
+        exports.reload = function() {
+            console.log(' message relaod');
+            AJAX('GET /api/messages/',function(res){
+                console.log(res);
+                SET('?.messages',res);
+            });
+        };
+        
+        exports.refresh = function(){
+            console.log('Refreshing...')
+        };
+    
+    });
+
+</script>

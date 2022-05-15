@@ -1,0 +1,91 @@
+<div style="width: 100%;" data-scope="chats">
+        <div style="width: 100%;"  data-bind="?.chats__template">
+            <script  type="text/html">
+                {{ foreach chat in value }}
+                <div data-id="{{ chat.id }}" class="single_chat">
+                    <div class="image_container exec" data-exec="?/lightbox">
+                        <img src="{{ chat.img }}">
+                    </div>
+                    <a  href="/chats/{{chat.unique }}" data-exec="?/current_chat" class="R content_container">
+                                <p class="user_name"> <name>{{ chat.username }}</name> <span class="lastupdate"> {{ chat.last_update }}</span> </p>
+                                <p class="user_name"> <span class="last_message">{{ chat.last_message }}</span> <span class="count">{{ chat.message_count }}</span> </p>
+                    </a>
+                    </div>
+                {{ end }}
+            </script>
+       </div>
+</div>
+<script>
+
+    FIND('viewbox',function (component){
+
+        component.config.height = parseFloat(MAIN.percentH);
+    });
+
+    PLUGIN('chats', function(exports) {
+        // You can define your custom functions or properties
+      exports.lightbox  = function (e) {
+                $('.lightbox_icon').removeClass('hidden');
+                var image = $(e).children('img').attr('src');
+                $('.lightbox_image img').attr('src',image);
+                var name = $(e).parent().find('.user_name name').text(); 
+                $('.lightbox_name').text(name);
+                $('.lightbox').css('display','flex');
+                $('.lightbox').animate({opacity : 1},200);
+                $('.lightbox_container').show();
+        };
+        (function(){
+			var previousScroll = 0;
+			$('.ui-viewbox').scroll(function(){
+				var currentScroll = $('.ui-viewbox').scrollTop();
+				if(currentScroll > previousScroll){
+					if(currentScroll > 0 && currentScroll <= 90){
+						$('.title_bar').css('margin-top', '-'+currentScroll+'px');
+						
+					}else{
+						$('.title_bar').css('margin-top', '-75px');
+					}
+				}else{
+					if( currentScroll <= 90){
+						
+						$('.title_bar').css('margin-top', '-'+currentScroll+'px');
+					}else{
+						$('.title_bar').css('margin-top', '-75px');
+					}
+				}
+	
+				previousScroll = currentScroll;
+			});
+
+			
+	
+		})();
+
+        
+
+        function linker(arr,cb){
+            for( var i = 0, len = arr.length; i < len; i++){
+                arr[i].linker = arr[i].username.slug();
+                arr[i].unique = arr[i].id+''+ arr[i].linker.split('-').join('');
+            }
+            cb(arr);
+        }
+        
+        exports.reload = function() {
+            console.log('relaod');
+            AJAX('GET /api/chats/',function(res){
+                SET('common.chats',res);
+                linker(res,function(response){
+
+                    SET('?.chats',response);
+                })
+            });
+        };
+        
+        exports.refresh = function(){
+            console.log('Refreshing...')
+        };
+    
+    });
+
+</script>
